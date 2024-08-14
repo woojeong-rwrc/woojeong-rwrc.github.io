@@ -3,36 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>차량 강화 시뮬레이터</title>
+    <title>Vehicle Upgrade Simulator</title>
     <link rel="stylesheet" href="css/car-enchant.css">
 </head>
 <body>
     <div class="container">
-        <div class="simulator">
-            <h1>차량 강화 시뮬레이터</h1>
-            <p>현재 강화단수: <span id="currentLevel">1</span></p>
-            <button id="upgradeBtn">강화하기</button>
-            <div id="animationContainer">
-                <div id="progressBar"></div>
-            </div>
-            <div id="result"></div>
-            <p>하락 단계: <span id="downgradeInfo">-</span></p>
+        <h1>Vehicle Upgrade Simulator</h1>
+        <div class="status">
+            <p>Current Level: <span id="currentLevel">1</span></p>
+            <p>Upgrade Result: <span id="upgradeResult">-</span></p>
+            <p>Downgrade Levels: <span id="downgradeLevels">-</span></p>
         </div>
+
+        <button id="upgradeButton">Upgrade</button>
+        <div class="progress">
+            <div id="progressBar"></div>
+        </div>
+
         <div class="tabs">
-            <div class="tab" id="upgradeOptionsTab">
-                <h2>누적 강화 옵션</h2>
-                <ul id="upgradeOptionsList"></ul>
-            </div>
-            <div class="tab" id="statsDetailsTab">
-                <h2>통계</h2>
-                <p>총 사용한 레인: <span id="totalRain">0</span></p>
-                <p>총 시도 횟수: <span id="totalAttempts">0</span></p>
-                <p>단계별 시도 횟수:</p>
-                <ul id="attemptsPerLevelList"></ul>
-            </div>
+            <button class="tab-button" onclick="showTab('cumulativeOptions')">누적 강화 옵션</button>
+            <button class="tab-button" onclick="showTab('rainStats')">레인 통계</button>
         </div>
-        <button id="resetBtn">초기화</button>
+
+        <div id="cumulativeOptions" class="tab-content">
+            <h2>누적 강화 옵션</h2>
+            <ul>
+                <li>레드 RPM: <span id="redRPM">0</span></li>
+                <li>최대 RPM: <span id="maxRPM">0</span></li>
+                <li>토크: <span id="torque">0</span></li>
+                <li>부스터 오버드라이브: <span id="btOverRPM">0</span></li>
+                <li>부스트 파워: <span id="btPower">0</span></li>
+                <li>스티어링 파워: <span id="stPower">0</span></li>
+                <li>타이어 노면 마찰계수: <span id="tiMu">0</span></li>
+                <li>연비: <span id="fuel">0</span></li>
+                <li>칼치기 데미지: <span id="damage">0</span></li>
+                <li>최대 SP: <span id="sp">0</span></li>
+            </ul>
+        </div>
+
+        <div id="rainStats" class="tab-content">
+            <h2>레인 통계</h2>
+            <p>누적 사용 레인: <span id="totalRain">0</span></p>
+            <p>총 시도 횟수: <span id="totalAttempts">0</span></p>
+            <p>강화 단계별 시도 횟수:</p>
+            <ul id="levelAttempts">
+                <!-- Attempts by level will be listed here -->
+            </ul>
+        </div>
+
+        <button id="resetButton">Reset</button>
     </div>
+
     <script src="js/car-enchant.js"></script>
 </body>
 </html>
