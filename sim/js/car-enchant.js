@@ -1,32 +1,17 @@
-let currentLevel = 1;
-let totalRain = 0;
-let totalAttempts = 0;
-let levelAttempts = {};
-let stats = {
-    redRPM: 0,
-    maxRPM: 0,
-    torque: 0,
-    btOverRPM: 0,
-    btPower: 0,
-    stPower: 0,
-    tiMu: 0,
-    fuel: 0,
-    damage: 0,
-    sp: 0
-};
-
 const upgrades = {
-    // Define the upgrade ranges for each level
-    10: { redRPM: [18, 24], maxRPM: [14, 19], torque: [20, 24], btOverRPM: [42, 47], btPower: [46, 58], stPower: [18, 22], tiMu: [16, 20] },
-    // Add other levels as needed...
+    10: { probUp: 55, probDown: 0, rain: 960000, redRPM: [18, 24], maxRPM: [14, 19], torque: [20, 24], btOverRPM: [42, 47], btPower: [46, 58], stPower: [18, 22], tiMu: [16, 20] }
 };
-
-document.getElementById('upgradeButton').addEventListener('click', upgrade);
-document.getElementById('resetButton').addEventListener('click', reset);
 
 function upgrade() {
     const levelData = upgrades[currentLevel];
-    const success = Math.random() < levelData.probUp / 100;
+
+    if (!levelData) {
+        alert('No data available for this upgrade level.');
+        return;
+    }
+
+    // Use the probUp and probDown values from levelData
+    const success = Math.random() < (levelData.probUp / 100); // Assuming probUp is out of 100
     totalAttempts++;
     levelAttempts[currentLevel] = (levelAttempts[currentLevel] || 0) + 1;
 
@@ -60,49 +45,39 @@ function getRandomValue(min, max) {
 }
 
 function getRandomDowngradeLevel() {
-    if (currentLevel >= 12) return Math.random() < 0.5 ? 2 : 3;
-    if (currentLevel >= 9) return Math.random() < 0.5 ? 1 : 2;
-    return 1;
+    if (currentLevel >= 12) {
+        return Math.floor(Math.random() * 2) + 2; // 2-3 level downgrade
+    } else if (currentLevel >= 9) {
+        return Math.floor(Math.random() * 3) + 1; // 1-3 level downgrade
+    } else if (currentLevel >= 6) {
+        return Math.floor(Math.random() * 2) + 1; // 1-2 level downgrade
+    } else {
+        return 1; // 1 level downgrade
+    }
 }
 
 function updateUI() {
     document.getElementById('currentLevel').textContent = currentLevel;
-    Object.keys(stats).forEach(stat => {
-        document.getElementById(stat).textContent = stats[stat];
-    });
-    document.getElementById('totalRain').textContent = totalRain;
+    document.getElementById('redRPM').textContent = stats.redRPM;
+    document.getElementById('maxRPM').textContent = stats.maxRPM;
+    document.getElementById('torque').textContent = stats.torque;
+    document.getElementById('btOverRPM').textContent = stats.btOverRPM;
+    document.getElementById('btPower').textContent = stats.btPower;
+    document.getElementById('stPower').textContent = stats.stPower;
+    document.getElementById('tiMu').textContent = stats.tiMu;
     document.getElementById('totalAttempts').textContent = totalAttempts;
-
-    const levelAttemptsList = document.getElementById('levelAttempts');
-    levelAttemptsList.innerHTML = '';
-    for (let level in levelAttempts) {
-        const listItem = document.createElement('li');
-        listItem.textContent = `Level ${level}: ${levelAttempts[level]} attempts`;
-        levelAttemptsList.appendChild(listItem);
-    }
+    document.getElementById('levelAttempts').textContent = levelAttempts[currentLevel];
 }
 
-function reset() {
-    currentLevel = 1;
-    totalRain = 0;
-    totalAttempts = 0;
-    levelAttempts = {};
-    stats = {
-        redRPM: 0,
-        maxRPM: 0,
-        torque: 0,
-        btOverRPM: 0,
-        btPower: 0,
-        stPower: 0,
-        tiMu: 0,
-        fuel: 0,
-        damage: 0,
-        sp: 0
-    };
-    updateUI();
-}
-
-function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
-    document.getElementById(tabId).style.display = 'block';
-}
+let currentLevel = 10; // Starting level, adjust as needed
+let totalAttempts = 0;
+let levelAttempts = {};
+let stats = {
+    redRPM: 0,
+    maxRPM: 0,
+    torque: 0,
+    btOverRPM: 0,
+    btPower: 0,
+    stPower: 0,
+    tiMu: 0
+};
