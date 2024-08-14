@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>차량 강화 시뮬레이터</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="simulator">
+            <h1>차량 강화 시뮬레이터</h1>
+            <button id="upgradeBtn">강화하기</button>
+            <div id="animationContainer">
+                <div id="progressBar"></div>
+            </div>
+            <div id="result"></div>
+        </div>
+        <div class="tabs">
+            <div class="tab" id="statsTab">
+                <h2>누적 강화 옵션</h2>
+                <ul id="upgradeOptionsList"></ul>
+            </div>
+            <div class="tab" id="statsDetailsTab">
+                <h2>통계</h2>
+                <p>총 사용한 레인: <span id="totalRain">0</span></p>
+                <p>총 시도 횟수: <span id="totalAttempts">0</span></p>
+                <p>단계별 시도 횟수:</p>
+                <ul id="attemptsPerLevelList"></ul>
+            </div>
+        </div>
+        <button id="resetBtn">리셋</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
