@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주행거리 계산기</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>주행거리 계산기</h1>
+        
+        <form id="distanceForm">
+            <label for="startKm">시작 주행거리 (KM):</label>
+            <input type="number" id="startKm" name="startKm" required>
+            
+            <label for="endKm">종료 주행거리 (KM):</label>
+            <input type="number" id="endKm" name="endKm" required>
+            
+            <button type="submit">계산하기</button>
+        </form>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // 페이지 로드 시, 저장된 주행거리 불러오기
+        window.onload = function() {
+            const savedStartKm = localStorage.getItem('startKm');
+            const savedEndKm = localStorage.getItem('endKm');
+
+            if (savedStartKm !== null) {
+                document.getElementById('startKm').value = savedStartKm;
+            }
+
+            if (savedEndKm !== null) {
+                document.getElementById('endKm').value = savedEndKm;
+            }
+        };
+
+        document.getElementById('distanceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const startKm = parseFloat(document.getElementById('startKm').value);
+            const endKm = parseFloat(document.getElementById('endKm').value);
+            
+            // 입력된 값을 localStorage에 저장
+            localStorage.setItem('startKm', startKm);
+            localStorage.setItem('endKm', endKm);
+            
+            const distance = endKm - startKm;
+            const eventEndDate = new Date('2024-10-04T23:59:00');
+            const today = new Date();
+            const remainingDays = Math.ceil((eventEndDate - today) / (1000 * 60 * 60 * 24));
+            
+            const milestones = [10000, 30000, 50000, 70000, 100000];
+            let reward = "";
+            let totalRainReward = 0;
+            let distanceInfo = "";
+
+            if (distance >= 100000) {
+                reward = "2.9엔진풀맥(부오, 쌍알) + 탑스피드 부스터 풀맥 보너스 지급";
+            } else if (distance >= 70000) {
+                reward = "리와인드 +16강세트 보너스 지급";
+            } else if (distance >= 50000) {
+                reward = "원하시는 외형세트 보너스 지급 (우라칸, 로드스터, 테슬라 외형세트 제외)";
+            } else if (distance >= 30000) {
+                reward = "리와인드 +12강세트 보너스 지급";
+            } else if (distance >= 10000) {
+                reward = "리와인드 +8강세트 보너스 지급";
+            } 
+            
+            if (distance >= 1000) {
+                totalRainReward = Math.floor(distance / 1000) * 700;
+            }
+
+            milestones.forEach(milestone => {
+                if (distance < milestone) {
+                    const remainingDistance = milestone - distance;
+                    const dailyDistanceNeeded = (remainingDistance / remainingDays).toFixed(2);
+                    distanceInfo += `\n- ${milestone}KM 목표까지 ${remainingDistance}KM 남음. 하루에 ${dailyDistanceNeeded}KM 주행 필요.`;
+                }
+            });
+
+            const rainRewardText = totalRainReward > 0 ? `총 레인 보상: ${totalRainReward}만 레인` : "";
+            const finalRewardText = reward ? `보상: ${reward}` : "보상을 받을 수 있는 주행거리가 아닙니다.";
+            
+            document.getElementById('result').innerText = `총 주행거리: ${distance} KM\n${finalRewardText}\n${rainRewardText}${distanceInfo}`;
+        });
+    </script>
+</body>
+</html>
