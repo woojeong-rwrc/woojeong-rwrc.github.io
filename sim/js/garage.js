@@ -1,5 +1,5 @@
 // 차량 데이터 (예시로 CarClass1만 사용)
-const cars = {
+const carData = {
   "CarClass1": {
     "className": "City",
     "vehicles": [
@@ -178,7 +178,7 @@ function loadCarData() {
     if (savedCars) {
         return JSON.parse(savedCars);
     }
-    return cars;
+    return carData;
 }
 
 // 차량 정보를 로컬 스토리지에 저장
@@ -206,7 +206,6 @@ function createCarCard(carClass, car) {
 
     // 구매 버튼 이벤트
     carElement.querySelector('button').addEventListener('click', function () {
-        const carName = this.getAttribute('data-name');
         car.purchased = !car.purchased;
         this.classList.toggle('purchased');
         this.textContent = car.purchased ? '구매됨' : '구매';
@@ -215,7 +214,6 @@ function createCarCard(carClass, car) {
 
     // 레벨 조정 이벤트
     carElement.querySelector('input[type="number"]').addEventListener('change', function () {
-        const carName = this.getAttribute('data-name');
         const newLevel = parseInt(this.value);
         car.level = newLevel;
         saveCarData(cars);
@@ -230,8 +228,8 @@ function renderCars() {
     carContainer.innerHTML = '';
 
     for (const carClass in cars) {
-        cars[carClass].forEach(car => {
-            const carCard = createCarCard(carClass, car);
+        cars[carClass].vehicles.forEach(car => {
+            const carCard = createCarCard(cars[carClass].className, car);
             carContainer.appendChild(carCard);
         });
     }
