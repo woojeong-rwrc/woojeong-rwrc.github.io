@@ -179,7 +179,9 @@ function loadCarData() {
     if (savedCars) {
         return JSON.parse(savedCars);
     }
-    return { ...carData }; // 기본 carData 반환
+    // 데이터가 없을 경우 초기 데이터 설정
+    localStorage.setItem('cars', JSON.stringify(carData));
+    return { ...carData };
 }
 
 // 차량 정보를 로컬 스토리지에 저장
@@ -249,6 +251,7 @@ function renderCars() {
 // 데이터 동기화 및 렌더링
 function syncAndRenderCars() {
     const savedCars = loadCarData();
+    // carData가 변경되었는지 확인
     if (JSON.stringify(savedCars) !== JSON.stringify(carData)) {
         // carData를 업데이트하고 저장
         Object.assign(carData, savedCars);
@@ -258,9 +261,4 @@ function syncAndRenderCars() {
 }
 
 // 초기 로드 시 차량 데이터를 불러와서 화면에 표시
-function initialize() {
-    syncAndRenderCars();
-}
-
-// HTML 문서가 로드된 후 초기화 실행
-document.addEventListener('DOMContentLoaded', initialize);
+syncAndRenderCars();
