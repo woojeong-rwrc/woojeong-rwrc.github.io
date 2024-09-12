@@ -250,6 +250,7 @@ function renderCars() {
 function syncAndRenderCars() {
     const savedCars = loadCarData();
     if (JSON.stringify(savedCars) !== JSON.stringify(carData)) {
+        // carData를 업데이트하고 저장
         Object.assign(carData, savedCars);
         saveCarData(carData);
     }
@@ -257,4 +258,9 @@ function syncAndRenderCars() {
 }
 
 // 초기 로드 시 차량 데이터를 불러와서 화면에 표시
-syncAndRenderCars();
+function initialize() {
+    syncAndRenderCars();
+}
+
+// HTML 문서가 로드된 후 초기화 실행
+document.addEventListener('DOMContentLoaded', initialize);
