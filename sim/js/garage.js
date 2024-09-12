@@ -191,8 +191,8 @@ function createCarCard(carClass, car) {
     const carElement = document.createElement('div');
     carElement.classList.add('car');
 
-    // Add 'level-200' class if car level is 200
-    if (car.level >= 200) {
+    // 레벨 200 차량에 오렌지색 박스 추가
+    if (car.level === 200) {
         carElement.classList.add('level-200');
     }
 
@@ -221,16 +221,12 @@ function createCarCard(carClass, car) {
     carElement.querySelector('input[type="number"]').addEventListener('change', function () {
         const newLevel = parseInt(this.value);
         car.level = newLevel;
-        if (car.level >= 200) {
-            carElement.classList.add('level-200');
-        } else {
-            carElement.classList.remove('level-200');
-        }
         saveCarData(cars);
     });
 
     return carElement;
 }
+
 
 // 차량 리스트 렌더링
 function renderCars() {
