@@ -248,7 +248,7 @@ function renderCars() {
     }
 }
 
-// 데이터 동기화 및 렌더링
+// 데이터 동기화 및 렌더링/
 function syncAndRenderCars() {
     const savedCars = loadCarData();
     // carData가 변경되었는지 확인
