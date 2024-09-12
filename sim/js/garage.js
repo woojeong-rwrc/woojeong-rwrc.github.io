@@ -185,8 +185,8 @@ function loadCarData() {
 }
 
 // 차량 정보를 로컬 스토리지에 저장
-function saveCarData(carData) {
-    localStorage.setItem('cars', JSON.stringify(carData));
+function saveCarData(data) {
+    localStorage.setItem('cars', JSON.stringify(data));
 }
 
 // 차량 카드 생성
@@ -216,14 +216,14 @@ function createCarCard(carClass, car) {
         car.purchased = !car.purchased;
         this.classList.toggle('purchased');
         this.textContent = car.purchased ? '구매됨' : '구매';
-        saveCarData(cars);
+        saveCarData(carData);
     });
 
     // 레벨 조정 이벤트
     carElement.querySelector('input[type="number"]').addEventListener('change', function () {
         const newLevel = parseInt(this.value);
         car.level = newLevel;
-        saveCarData(cars);
+        saveCarData(carData);
     });
 
     return carElement;
@@ -234,13 +234,13 @@ function renderCars() {
     const carContainer = document.getElementById('car-container');
     carContainer.innerHTML = '';
 
-    for (const carClass in cars) {
+    for (const carClass in carData) {
         const classContainer = document.createElement('div');
         classContainer.classList.add('car-class');
-        classContainer.innerHTML = `<h2>${cars[carClass].className}</h2>`;
+        classContainer.innerHTML = `<h2>${carData[carClass].className}</h2>`;
 
-        cars[carClass].vehicles.forEach(car => {
-            const carCard = createCarCard(cars[carClass].className, car);
+        carData[carClass].vehicles.forEach(car => {
+            const carCard = createCarCard(carData[carClass].className, car);
             classContainer.appendChild(carCard);
         });
 
