@@ -179,7 +179,7 @@ function loadCarData() {
     if (savedCars) {
         return JSON.parse(savedCars);
     }
-    return carData;
+    return { ...carData }; // 기본 carData 반환
 }
 
 // 차량 정보를 로컬 스토리지에 저장
@@ -198,10 +198,10 @@ function createCarCard(carClass, car) {
 
     const purchased = car.purchased || false;
     carElement.innerHTML = `
-        <h2>${car.name} </h2>
+        <h2>${car.name} (${carClass})</h2>
         <p>구입 가격: ${car.price}</p>
         <div class="level-control">
-            <label> 레벨: </label>
+            <label>레벨: </label>
             <input type="number" value="${car.level}" min="1" max="200" data-name="${car.name}" />
         </div>
         <button class="${purchased ? 'purchased' : ''}" data-name="${car.name}">
@@ -246,6 +246,17 @@ function renderCars() {
     }
 }
 
+// 데이터 동기화 및 렌더링
+function syncAndRenderCars() {
+    const savedCars = loadCarData();
+    // 데이터가 변경되었는지 확인
+    if (JSON.stringify(savedCars) !== JSON.stringify(carData)) {
+        // carData를 업데이트하고 저장
+        Object.assign(carData, savedCars);
+        saveCarData(carData);
+    }
+    renderCars();
+}
+
 // 초기 로드 시 차량 데이터를 불러와서 화면에 표시
-const cars = loadCarData();
-renderCars();
+syncAndRenderCars();
