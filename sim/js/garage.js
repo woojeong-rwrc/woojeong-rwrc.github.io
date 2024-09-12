@@ -183,8 +183,8 @@ function loadCarData() {
 }
 
 // 차량 정보를 로컬 스토리지에 저장
-function saveCarData(data) {
-    localStorage.setItem('cars', JSON.stringify(data));
+function saveCarData(carData) {
+    localStorage.setItem('cars', JSON.stringify(carData));
 }
 
 // 차량 카드 생성
@@ -220,12 +220,8 @@ function createCarCard(carClass, car) {
     // 레벨 조정 이벤트
     carElement.querySelector('input[type="number"]').addEventListener('change', function () {
         const newLevel = parseInt(this.value);
-        if (newLevel >= 1 && newLevel <= 200) { // 유효성 검사 추가
-            car.level = newLevel;
-            saveCarData(cars);
-        } else {
-            this.value = car.level; // 유효하지 않은 값일 경우 원래 값으로 되돌림
-        }
+        car.level = newLevel;
+        saveCarData(cars);
     });
 
     return carElement;
@@ -253,16 +249,12 @@ function renderCars() {
 // 데이터 동기화 및 렌더링
 function syncAndRenderCars() {
     const savedCars = loadCarData();
-    // 데이터가 변경되었는지 확인
     if (JSON.stringify(savedCars) !== JSON.stringify(carData)) {
-        // carData를 업데이트하고 저장
         Object.assign(carData, savedCars);
         saveCarData(carData);
     }
-    cars = loadCarData(); // cars 변수 초기화
     renderCars();
 }
 
 // 초기 로드 시 차량 데이터를 불러와서 화면에 표시
-let cars = loadCarData(); // cars 변수 초기화
 syncAndRenderCars();
