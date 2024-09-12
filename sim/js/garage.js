@@ -165,9 +165,10 @@ const carData = {
       { name: "Panzio", level: 1, price: "80000000rain" },
       { name: "Pegasus", level: 1, price: "85000000rain" },
       { name: "Angelo", level: 1, price: "85000000rain" },
+      { name: "Roadster", level: 1, price: "구입 퀘스트 보상" },
       { name: "Sparta", level: 1, price: "50000rp" },
-      { name: "Bionic", level: 1, price: "0rain" },
-      { name: "Scooter", level: 1, price: "0rain" }
+      { name: "Bionic", level: 1, price: "뉴비 퀘스트 보상" },
+      { name: "Scooter", level: 1, price: "이벤트 차량" }
     ]
   }
 };
