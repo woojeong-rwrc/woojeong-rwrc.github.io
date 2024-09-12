@@ -10,42 +10,40 @@ h1 {
     color: #333;
 }
 
-.car-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
+/* 차량 클래스별 간격 추가 */
+.car-class {
+    margin-bottom: 40px; /* 각 CarClass 사이의 간격 조절 */
 }
 
 .car {
     background-color: #fff;
     border: 1px solid #ddd;
-    padding: 15px;
+    padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    text-align: center;
-    width: 250px; /* Set a fixed width for alignment */
-}
-
-.car.level-200 {
-    border: 2px solid orange;
-    background-color: #fff3e0; /* Light orange background */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 공간 분배 */
 }
 
 .car h2 {
-    margin-bottom: 10px;
+    margin: 0;
     font-size: 18px;
     color: #555;
+    flex: 1; /* 제목이 남은 공간을 차지하게 함 */
 }
 
-.car .level-control {
-    margin: 10px 0;
+.car .details {
+    flex: 2; /* 상세 정보가 더 넓은 공간을 차지하도록 설정 */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.car input[type="number"] {
-    width: 60px;
-    padding: 5px;
-    margin-right: 10px;
+.car .details p {
+    margin: 0;
 }
 
 .car button {
@@ -59,4 +57,8 @@ h1 {
 
 .car button.purchased {
     background-color: #007bff;
+}
+
+.car.level-200 {
+    border-color: #ff6600; /* 오렌지색 테두리 */
 }
