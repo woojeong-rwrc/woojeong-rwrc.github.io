@@ -10,40 +10,42 @@ h1 {
     color: #333;
 }
 
-/* 차량 클래스별 간격 추가 */
+.car-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* 각 CarClass간 간격 */
+}
+
 .car-class {
-    margin-bottom: 40px; /* 각 CarClass 사이의 간격 조절 */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* 차량 간격 */
 }
 
 .car {
     background-color: #fff;
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    text-align: left; /* 텍스트 왼쪽 정렬 */
-    display: flex;
-    align-items: center; /* 세로 중앙 정렬 */
-    justify-content: space-between; /* 공간 분배 */
+    text-align: center;
+    flex: 1 0 250px; /* 차량 카드의 최소 너비 설정 */
 }
 
 .car h2 {
-    margin: 0;
+    margin-bottom: 10px;
     font-size: 18px;
     color: #555;
-    flex: 1; /* 제목이 남은 공간을 차지하게 함 */
 }
 
-.car .details {
-    flex: 2; /* 상세 정보가 더 넓은 공간을 차지하도록 설정 */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+.car .level-control {
+    margin: 10px 0;
 }
 
-.car .details p {
-    margin: 0;
+.car input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    margin-right: 10px;
 }
 
 .car button {
@@ -59,6 +61,9 @@ h1 {
     background-color: #007bff;
 }
 
-.car.level-200 {
-    border-color: #ff6600; /* 오렌지색 테두리 */
+/* 레벨 200 차량에 대한 스타일 */
+.level-200 {
+    background-color: orange; /* 박스 배경색을 오렌지색으로 변경 */
+    color: #fff; /* 텍스트 색상을 흰색으로 변경하여 가독성 향상 */
+    border: 1px solid #ddd; /* 기존 테두리 색상 유지 */
 }
