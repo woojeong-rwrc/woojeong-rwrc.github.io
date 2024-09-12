@@ -1,4 +1,4 @@
-// 차량 데이터 (전체 클래스 포함)
+// 차량 데이터 (전체 클래스 포함)?
 const carData = {
   "CarClass1": {
     "className": "City",
