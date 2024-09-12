@@ -1,4 +1,4 @@
-// 차량 데이터 (전체 클래스 포함)?
+// 차량 데이터
 const carData = {
   "CarClass1": {
     "className": "City",
@@ -183,8 +183,8 @@ function loadCarData() {
 }
 
 // 차량 정보를 로컬 스토리지에 저장
-function saveCarData(carData) {
-    localStorage.setItem('cars', JSON.stringify(carData));
+function saveCarData(data) {
+    localStorage.setItem('cars', JSON.stringify(data));
 }
 
 // 차량 카드 생성
@@ -220,8 +220,12 @@ function createCarCard(carClass, car) {
     // 레벨 조정 이벤트
     carElement.querySelector('input[type="number"]').addEventListener('change', function () {
         const newLevel = parseInt(this.value);
-        car.level = newLevel;
-        saveCarData(cars);
+        if (newLevel >= 1 && newLevel <= 200) { // 유효성 검사 추가
+            car.level = newLevel;
+            saveCarData(cars);
+        } else {
+            this.value = car.level; // 유효하지 않은 값일 경우 원래 값으로 되돌림
+        }
     });
 
     return carElement;
@@ -255,8 +259,10 @@ function syncAndRenderCars() {
         Object.assign(carData, savedCars);
         saveCarData(carData);
     }
+    cars = loadCarData(); // cars 변수 초기화
     renderCars();
 }
 
 // 초기 로드 시 차량 데이터를 불러와서 화면에 표시
+let cars = loadCarData(); // cars 변수 초기화
 syncAndRenderCars();
