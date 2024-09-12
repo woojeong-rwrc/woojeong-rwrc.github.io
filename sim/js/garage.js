@@ -1,4 +1,4 @@
-// 차량 데이터 (예시로 CarClass1만 사용)
+// 차량 데이터 (전체 클래스 포함)
 const carData = {
   "CarClass1": {
     "className": "City",
@@ -93,7 +93,7 @@ const carData = {
       { name: "Echo", level: 52, price: "450000rain" }
     ]
   },
-    "CarClass6": {
+  "CarClass6": {
     "className": "Sports",
     "vehicles": [
       { name: "Zencoupe", level: 50, price: "3500cash" },
@@ -151,7 +151,7 @@ const carData = {
       { name: "Milano", level: 92, price: "950000rain" },
       { name: "Romans", level: 99, price: "2150000rain" },
       { name: "RC-1", level: 40, price: "3990cash" },
-      { name: "Kalisto", level: 10, price: "200000rain" }
+      { name: "kalisto", level: 10, price: "200000rain" }
     ]
   },
   "CarClass8": {
