@@ -191,6 +191,11 @@ function createCarCard(carClass, car) {
     const carElement = document.createElement('div');
     carElement.classList.add('car');
 
+    // Add 'level-200' class if car level is 200
+    if (car.level >= 200) {
+        carElement.classList.add('level-200');
+    }
+
     const purchased = car.purchased || false;
     carElement.innerHTML = `
         <h2>${car.name} (${carClass})</h2>
@@ -216,6 +221,11 @@ function createCarCard(carClass, car) {
     carElement.querySelector('input[type="number"]').addEventListener('change', function () {
         const newLevel = parseInt(this.value);
         car.level = newLevel;
+        if (car.level >= 200) {
+            carElement.classList.add('level-200');
+        } else {
+            carElement.classList.remove('level-200');
+        }
         saveCarData(cars);
     });
 
