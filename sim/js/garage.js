@@ -190,13 +190,11 @@ function saveCarData(carData) {
 function createCarCard(carClass, car) {
     const carElement = document.createElement('div');
     carElement.classList.add('car');
-
-    // 레벨 200 차량에 오렌지색 박스 추가
+    
     if (car.level === 200) {
         carElement.classList.add('level-200');
     }
 
-    const purchased = car.purchased || false;
     carElement.innerHTML = `
         <h2>${car.name} (${carClass})</h2>
         <p>구입 가격: ${car.price}</p>
@@ -204,8 +202,8 @@ function createCarCard(carClass, car) {
             <label>레벨: </label>
             <input type="number" value="${car.level}" min="1" max="200" data-name="${car.name}" />
         </div>
-        <button class="${purchased ? 'purchased' : ''}" data-name="${car.name}">
-            ${purchased ? '구매됨' : '구매'}
+        <button class="${car.purchased ? 'purchased' : ''}" data-name="${car.name}">
+            ${car.purchased ? '구매됨' : '구매'}
         </button>
     `;
 
@@ -227,17 +225,25 @@ function createCarCard(carClass, car) {
     return carElement;
 }
 
-
 // 차량 리스트 렌더링
 function renderCars() {
     const carContainer = document.getElementById('car-container');
     carContainer.innerHTML = '';
 
     for (const carClass in cars) {
+        // 각 CarClass를 감싸는 div 생성
+        const classContainer = document.createElement('div');
+        classContainer.classList.add('car-class');
+        classContainer.innerHTML = `<h3>${cars[carClass].className}</h3>`;
+        
+        // 각 차량 카드를 생성하고 classContainer에 추가
         cars[carClass].vehicles.forEach(car => {
             const carCard = createCarCard(cars[carClass].className, car);
-            carContainer.appendChild(carCard);
+            classContainer.appendChild(carCard);
         });
+        
+        // carContainer에 classContainer를 추가
+        carContainer.appendChild(classContainer);
     }
 }
 
