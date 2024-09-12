@@ -12,10 +12,9 @@ h1 {
 
 .car-container {
     display: flex;
-    flex-wrap: nowrap; /* Keep items in a single line */
-    overflow-x: auto; /* Scroll if the items overflow */
-    padding: 20px;
+    flex-wrap: wrap;
     gap: 20px;
+    padding: 20px;
 }
 
 .car {
@@ -25,8 +24,12 @@ h1 {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
-    flex: 0 0 auto; /* Prevent items from shrinking */
-    min-width: 250px; /* Minimum width for each card */
+    width: 250px; /* Set a fixed width for alignment */
+}
+
+.car.level-200 {
+    border: 2px solid orange;
+    background-color: #fff3e0; /* Light orange background */
 }
 
 .car h2 {
@@ -57,11 +60,3 @@ h1 {
 .car button.purchased {
     background-color: #007bff;
 }
-
-/* Highlight cars at level 200 */
-.car.level-200 {
-    background-color: orange;
-    color: #fff;
-}
-
-/* gg */
